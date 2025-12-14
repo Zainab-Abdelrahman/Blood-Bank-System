@@ -26,7 +26,7 @@ Represents a single blood batch stored in the blood bank.
 - Quantity
 - DonationDate 
 - ExpiryDate
-- 
+  
 ---
 
 ### 2️⃣ BloodStock
