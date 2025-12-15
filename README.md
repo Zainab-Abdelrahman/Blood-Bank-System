@@ -25,12 +25,8 @@ Represents a single blood batch stored in the blood bank.
 - BloodType
 - Quantity
 - DonationDate 
-- ExpiryDate 
-
-*Notes:*
-- Donation date is set automatically using system time.
-- Expiry date is calculated based on donation date.
-
+- ExpiryDate
+  
 ---
 
 ### 2️⃣ BloodStock
