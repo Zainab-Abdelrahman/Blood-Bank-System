@@ -181,5 +181,9 @@ bool BloodStock::reduceQuantity(const string& type, float qty)
             return true;
         }
     }
+
     return false; 
 }
+
+
+
