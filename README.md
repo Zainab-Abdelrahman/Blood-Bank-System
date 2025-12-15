@@ -44,7 +44,6 @@ Manages all blood units and overall inventory.
 ## 🧠 Data Structures Used
 - *Deque* → storing blood units by insertion order
 - *Hash Map* → quick access by blood type
-- *Priority Queue* → handling expiry dates (soonest first)
 - *Linked List* → internal management where required
 
 ---

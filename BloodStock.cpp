@@ -32,6 +32,7 @@ bool BloodStock::removeOldestUnit(const string& bloodType)
     return true;
 }
 
+
 // Get total quantity of a blood type
 float BloodStock::getTotalQuantity(const string& bloodType) const
 {
@@ -163,18 +164,22 @@ void BloodStock::loadFromFile(const string& filename)
 }
 
 
-bool BloodStock::reduceQuantity(const string& type, float qty) {
+bool BloodStock::reduceQuantity(const string& type, float qty) 
+{
     if (stock.find(type) == stock.end() || stock[type].empty()) return false;
 
-    for (auto& unit : stock[type]) {
-        if (unit.getQuantity() >= qty) {
-            unit.setQuantity(unit.getQuantity() - qty); // гсйноЦ setter АйзоМА гАъЦМи
-            if (unit.getQuantity() <= 0) {
-                stock[type].pop_front(); // ергАи гАФмои епг гДйЕй
+    for (auto& unit : stock[type])
+     {
+        if (unit.getQuantity() >= qty)
+         {
+            unit.setQuantity(unit.getQuantity() - qty);
+            if (unit.getQuantity() <= 0)
+             {
+                stock[type].pop_front(); 
             }
             saveToFile();
             return true;
         }
     }
-    return false; // ъЦМи шМя ъгщМи
+    return false; 
 }
