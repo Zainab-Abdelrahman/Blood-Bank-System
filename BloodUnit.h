@@ -26,16 +26,18 @@ public:
     string getExpiryDate() const;
 
     // Setters
-    void setBatchID(const string &b_id);
+    void setBatchID(const string& b_id);
     void setQuantity(float qty);
-    void setDonationDate(const string &d_date);
-    void setExpiryDate(const string &e_date);
+    void setDonationDate(const string& d_date);
+    void setExpiryDate(const string& e_date);
 
     // Input
     void inputBloodUnit();
 
     // Display
     void displayBloodUnit() const;
+
+    
 };
 
 #endif

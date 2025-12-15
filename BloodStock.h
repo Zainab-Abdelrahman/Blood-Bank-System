@@ -16,21 +16,23 @@ private:
 public:
     BloodStock();
 
-    void addBloodUnit(const string &bloodType, const BloodUnit &unit);
+    void addBloodUnit(const string& bloodType, const BloodUnit& unit);
 
-    bool removeOldestUnit(const string &bloodType);
+    bool removeOldestUnit(const string& bloodType);
 
-    float getTotalQuantity(const string &bloodType) const;
+    float getTotalQuantity(const string& bloodType) const;
 
-    void displayBloodType(const string &bloodType) const;
+    void displayBloodType(const string& bloodType) const;
 
     void displayAllStock() const;
 
-    bool searchBatch(const string &batch_id) const;
+    bool searchBatch(const string& batch_id) const;
 
-    void saveToFile(const string &filename = "BloodStock.txt") const;
+    void saveToFile(const string& filename = "BloodStock.txt") const;
 
-    void loadFromFile(const string &filename = "BloodStock.txt");
+    void loadFromFile(const string& filename = "BloodStock.txt");
+
+    bool reduceQuantity(const string& type, float qty);
 };
 
 #endif

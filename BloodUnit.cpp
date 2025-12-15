@@ -25,10 +25,10 @@ string BloodUnit::getDonationDate() const { return donation_date; }
 string BloodUnit::getExpiryDate() const { return expiry_date; }
 
 // Setters
-void BloodUnit::setBatchID(const string &b_id) { batch_id = b_id; }
+void BloodUnit::setBatchID(const string& b_id) { batch_id = b_id; }
 void BloodUnit::setQuantity(float qty) { quantity = qty; }
-void BloodUnit::setDonationDate(const string &d_date) { donation_date = d_date; }
-void BloodUnit::setExpiryDate(const string &e_date) { expiry_date = e_date; }
+void BloodUnit::setDonationDate(const string& d_date) { donation_date = d_date; }
+void BloodUnit::setExpiryDate(const string& e_date) { expiry_date = e_date; }
 
 // Input
 void BloodUnit::inputBloodUnit()

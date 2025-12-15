@@ -1,4 +1,5 @@
 #include "BloodStock.h"
+#include "BloodUnit.h"
 #include <iostream>
 #include <string>
 #include <unordered_map>
@@ -10,14 +11,14 @@ using namespace std;
 BloodStock::BloodStock() {}
 
 // Add blood unit to the stock
-void BloodStock::addBloodUnit(const string &bloodType, const BloodUnit &unit)
+void BloodStock::addBloodUnit(const string& bloodType, const BloodUnit& unit)
 {
     stock[bloodType].push_back(unit);
     cout << "\nBlood unit added to stock successfully.\n";
 }
 
 // Remove oldest unit (FIFO)
-bool BloodStock::removeOldestUnit(const string &bloodType)
+bool BloodStock::removeOldestUnit(const string& bloodType)
 {
     if (stock.find(bloodType) == stock.end() || stock[bloodType].empty())
     {
@@ -26,25 +27,26 @@ bool BloodStock::removeOldestUnit(const string &bloodType)
     }
 
     stock[bloodType].pop_front();
+    saveToFile();
     cout << "\nOldest unit removed.\n";
     return true;
 }
 
 // Get total quantity of a blood type
-float BloodStock::getTotalQuantity(const string &bloodType) const
+float BloodStock::getTotalQuantity(const string& bloodType) const
 {
     if (stock.find(bloodType) == stock.end())
         return 0.0;
 
     float total = 0;
-    for (const auto &unit : stock.at(bloodType))
+    for (const auto& unit : stock.at(bloodType))
         total += unit.getQuantity();
 
     return total;
 }
 
 // Display all units of a specific blood type
-void BloodStock::displayBloodType(const string &bloodType) const
+void BloodStock::displayBloodType(const string& bloodType) const
 {
     if (stock.find(bloodType) == stock.end() || stock.at(bloodType).empty())
     {
@@ -54,7 +56,7 @@ void BloodStock::displayBloodType(const string &bloodType) const
 
     cout << "\n=== Blood Stock for Type " << bloodType << " ===\n";
 
-    for (const auto &unit : stock.at(bloodType))
+    for (const auto& unit : stock.at(bloodType))
     {
         unit.displayBloodUnit();
         cout << endl;
@@ -74,10 +76,10 @@ void BloodStock::displayAllStock() const
 
     cout << "\n===== ALL BLOOD STOCK =====\n";
 
-    for (const auto &pair : stock)
+    for (const auto& pair : stock)
     {
         cout << "\n>>> Blood Type: " << pair.first << endl;
-        for (const auto &unit : pair.second)
+        for (const auto& unit : pair.second)
         {
             unit.displayBloodUnit();
             cout << endl;
@@ -87,11 +89,11 @@ void BloodStock::displayAllStock() const
 }
 
 // Search for batch ID in all blood types
-bool BloodStock::searchBatch(const string &batch_id) const
+bool BloodStock::searchBatch(const string& batch_id) const
 {
-    for (const auto &pair : stock)
+    for (const auto& pair : stock)
     {
-        for (const auto &unit : pair.second)
+        for (const auto& unit : pair.second)
         {
             if (unit.getBatchID() == batch_id)
             {
@@ -107,7 +109,7 @@ bool BloodStock::searchBatch(const string &batch_id) const
     return false;
 }
 
-void BloodStock::saveToFile(const string &filename) const
+void BloodStock::saveToFile(const string& filename) const
 {
     ofstream file(filename);
 
@@ -117,17 +119,17 @@ void BloodStock::saveToFile(const string &filename) const
         return;
     }
 
-    for (const auto &pair : stock)
+    for (const auto& pair : stock)
     {
         string bloodType = pair.first;
 
-        for (const auto &unit : pair.second)
+        for (const auto& unit : pair.second)
         {
             file << bloodType << " "
-                 << unit.getBatchID() << " "
-                 << unit.getQuantity() << " "
-                 << unit.getDonationDate() << " "
-                 << unit.getExpiryDate() << "\n";
+                << unit.getBatchID() << " "
+                << unit.getQuantity() << " "
+                << unit.getDonationDate() << " "
+                << unit.getExpiryDate() << "\n";
         }
     }
 
@@ -135,7 +137,7 @@ void BloodStock::saveToFile(const string &filename) const
     cout << "\nStock saved successfully to file.\n";
 }
 
-void BloodStock::loadFromFile(const string &filename)
+void BloodStock::loadFromFile(const string& filename)
 {
     ifstream file(filename);
 
@@ -145,7 +147,7 @@ void BloodStock::loadFromFile(const string &filename)
         return;
     }
 
-    stock.clear(); // تنظيف القديم
+    stock.clear();
 
     string bloodType, batch_id, donation_date, expiry_date;
     float quantity;
@@ -158,4 +160,21 @@ void BloodStock::loadFromFile(const string &filename)
 
     file.close();
     cout << "\nStock loaded successfully.\n";
+}
+
+
+bool BloodStock::reduceQuantity(const string& type, float qty) {
+    if (stock.find(type) == stock.end() || stock[type].empty()) return false;
+
+    for (auto& unit : stock[type]) {
+        if (unit.getQuantity() >= qty) {
+            unit.setQuantity(unit.getQuantity() - qty); // гсйноЦ setter АйзоМА гАъЦМи
+            if (unit.getQuantity() <= 0) {
+                stock[type].pop_front(); // ергАи гАФмои епг гДйЕй
+            }
+            saveToFile();
+            return true;
+        }
+    }
+    return false; // ъЦМи шМя ъгщМи
 }
